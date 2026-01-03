@@ -1,19 +1,27 @@
-# Ignorar archivos ZIP y binarios grandes
+# Archivos comprimidos y binarios grandes
 *.zip
 *.tar.gz
 *.rar
 
-# Ignorar archivos temporales del sistema
+# Archivos temporales del sistema
 .DS_Store
 Thumbs.db
 
-# Ignorar archivos de entorno y configuración local
+# Archivos de entorno y configuración local
 .env
 *.log
 
-# Ignorar carpetas de compilación y dependencias
+# Carpetas de compilación y dependencias
 target/
 build/
 node_modules/
 .idea/
 .vscode/
+
+# Entorno virtual y archivos de Python
+venv/
+__pycache__/
+*.pyc
+
+# Base de datos local
+db.sqlite3
