@@ -1,0 +1,19 @@
+# Ignorar archivos ZIP y binarios grandes
+*.zip
+*.tar.gz
+*.rar
+
+# Ignorar archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de entorno y configuración local
+.env
+*.log
+
+# Ignorar carpetas de compilación y dependencias
+target/
+build/
+node_modules/
+.idea/
+.vscode/
