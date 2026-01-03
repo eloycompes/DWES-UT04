@@ -1,0 +1,18 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear usuario</title>
+</head>
+<body class="p-6">
+    <h1 class="text-2xl font-bold mb-4">Dar de alta un nuevo usuario</h1>
+    <form method="POST">
+        <!-- El siguiente elemento sirve para proteger tus formularios contra ataques CSRF -->
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-4">Guardar</button>
+    </form>
+</body>
+</html>
