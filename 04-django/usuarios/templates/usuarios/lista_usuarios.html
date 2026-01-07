@@ -34,7 +34,11 @@
         <tbody>
             {% for usuario in profesores %}
                 <tr>
-                    <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
+                    <td>
+                        <a href="{% url 'datos_usuario' usuario.id %}">
+                            {{ usuario.nombre }} {{ usuario.apellido }}
+                        </a>
+                    </td>
                     <td>{{ usuario.email }}</td>
                 </tr>
             {% empty %}
@@ -55,7 +59,11 @@
         <tbody>
             {% for usuario in alumnos %}
                 <tr>
-                    <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
+                    <td>
+                        <a href="{% url 'datos_usuario' usuario.id %}">
+                            {{ usuario.nombre }} {{ usuario.apellido }}
+                        </a>
+                    </td>
                     <td>{{ usuario.email }}</td>
                 </tr>
             {% empty %}
