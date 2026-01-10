@@ -55,15 +55,30 @@ def crear_tarea_grupal(request):
 
 def mis_tareas(request):
     usuario = usuario_actual(request)
-    if not usuario:
-        return redirect("login")
-    
+
+    es_profesor = (usuario.rol == "PROFESOR")
+
+    # Si es profesor → solo ver tareas a validar
+    if es_profesor:
+        tareas_a_validar = Tarea.objects.filter(
+            requiere_validacion_profesor=True,
+            profesor_validador=usuario,
+            validada_por_profesor=False
+        )
+
+        return render(request, "tareas/mis_tareas.html", {
+            "tareas_a_validar": tareas_a_validar,
+            "es_profesor": True,
+        })
+
+    # Si es alumno → ver tareas creadas y donde colabora
     tareas_creadas = Tarea.objects.filter(creador=usuario)
     tareas_colabora = Tarea.objects.filter(colaboradores=usuario)
 
     return render(request, "tareas/mis_tareas.html", {
         "tareas_creadas": tareas_creadas,
         "tareas_colabora": tareas_colabora,
+        "es_profesor": False,
     })
 
 
