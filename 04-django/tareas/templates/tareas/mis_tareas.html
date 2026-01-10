@@ -9,7 +9,11 @@
 
 <div class="container">
 
-    <h1 class="mb-4">Mis tareas</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="m-0">Mis tareas</h1>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger">Cambiar de usuario</a>
+    </div>
+
 
     <a href="{% url 'crear_tarea_individual' %}" class="btn btn-primary mb-3">Crear tarea individual</a>
     <a href="{% url 'crear_tarea_grupal' %}" class="btn btn-success mb-3">Crear tarea grupal</a>

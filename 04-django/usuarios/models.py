@@ -23,6 +23,5 @@ class Usuario(models.Model):
             raise ValidationError("El rol debe ser ALUMNO o PROFESOR.")
 
 
-
     def __str__(self):
         return f"{self.nombre} {self.apellido} ({self.rol})"

@@ -27,3 +27,19 @@ def datos_usuario(request, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
 
     return render(request, "usuarios/datos_usuario.html", {"usuario": usuario})
+
+
+
+def login_view(request):
+    if request.method == "POST":
+        usuario_id = request.POST.get("usuario_id")
+        request.session["usuario_id"] = usuario_id
+        return redirect("mis_tareas")  # o donde quieras
+
+    usuarios = Usuario.objects.all()
+    return render(request, "usuarios/login.html", {"usuarios": usuarios})
+
+
+def logout_view(request):
+    request.session.flush()
+    return redirect("login")

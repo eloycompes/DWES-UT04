@@ -1,5 +1,5 @@
 """
-ASGI config for ejercicio01 project.
+ASGI config for ejercicio04 project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

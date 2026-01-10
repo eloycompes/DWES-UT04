@@ -14,6 +14,11 @@ class TareaBaseForm(forms.ModelForm):
             "colaboradores",
         ]
 
+        widgets = {
+            "fecha_entrega": forms.DateInput(attrs={"type": "date", "class": "form-control"}),
+            "colaboradores": forms.CheckboxSelectMultiple(),
+        }
+
     def __init__(self, *args, **kwargs):
         self.creador = kwargs.pop("creador")  # lo pasaremos desde la vista
         super().__init__(*args, **kwargs)
@@ -24,9 +29,10 @@ class TareaBaseForm(forms.ModelForm):
         # Filtrar alumnos para colaboradores
         self.fields["colaboradores"].queryset = Usuario.objects.filter(rol="ALUMNO")
 
-        # Si no requiere validación → ocultar profesor_validador
-        if not self.initial.get("requiere_validacion_profesor", False):
-            self.fields["profesor_validador"].widget = forms.HiddenInput()
+        # Añadir clase CSS para poder mostrar/ocultar con JS
+        self.fields["profesor_validador"].widget.attrs.update({"class": "profesor-field"})
+
+
 
     def clean(self):
         cleaned_data = super().clean()
@@ -45,6 +51,11 @@ class TareaIndividualForm(TareaBaseForm):
     class Meta(TareaBaseForm.Meta):
         pass
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ocultar el campo colaboradores
+        self.fields["colaboradores"].widget = forms.HiddenInput()
+
     def clean(self):
         cleaned_data = super().clean()
 
@@ -61,13 +72,24 @@ class TareaGrupalForm(TareaBaseForm):
     class Meta(TareaBaseForm.Meta):
         pass
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # EXCLUIR AL CREADOR DE LA LISTA DE COLABORADORES
+        self.fields["colaboradores"].queryset = (
+            self.fields["colaboradores"].queryset.exclude(id=self.creador.id)
+        )
+
     def clean(self):
         cleaned_data = super().clean()
 
         colaboradores = cleaned_data.get("colaboradores")
 
-        # Mínimo 2 alumnos (creador se añadirá luego)
+        # Mínimo 1 alumno seleccionado en el formulario
+        # (el creador se añadirá luego en la vista)
         if colaboradores.count() < 1:
-            raise forms.ValidationError("Una tarea grupal debe tener al menos dos alumnos (incluyendo al creador).")
+            raise forms.ValidationError(
+                "Una tarea grupal debe tener al menos dos alumnos (incluyendo al creador)."
+            )
 
         return cleaned_data

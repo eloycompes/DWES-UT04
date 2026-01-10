@@ -7,6 +7,8 @@
 </head>
 <body class="p-4">
 
+{% load crispy_forms_tags %}
+
 <div class="container">
     <h1 class="mb-4">Crear tarea grupal</h1>
 
@@ -18,6 +20,27 @@
 
     <a href="{% url 'mis_tareas' %}" class="btn btn-secondary mt-4">Volver</a>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const checkbox = document.querySelector("#id_requiere_validacion_profesor");
+    const profesorField = document.querySelector(".profesor-field").closest("div");
+
+    function toggleProfesorField() {
+        if (checkbox.checked) {
+            profesorField.style.display = "block";
+        } else {
+            profesorField.style.display = "none";
+        }
+    }
+
+    // Inicializar estado al cargar la página
+    toggleProfesorField();
+
+    // Escuchar cambios en el checkbox
+    checkbox.addEventListener("change", toggleProfesorField);
+});
+</script>
 
 </body>
 </html>
