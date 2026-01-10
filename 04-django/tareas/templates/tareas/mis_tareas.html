@@ -45,12 +45,20 @@
         <h3 class="mt-4">Tareas a validar</h3>
         <ul class="list-group mb-4">
             {% for tarea in tareas_a_validar %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ tarea.titulo }}
+            <li class="list-group-item d-flex align-items-center">
+                {{ tarea.titulo }}
+
+                <div class="ms-auto d-flex gap-2">
                     <a href="{% url 'detalle_tarea' tarea.id %}" class="btn btn-warning btn-sm">
                         Revisar
                     </a>
-                </li>
+
+                    <a href="{% url 'validar_tarea' tarea.id %}" class="btn btn-success btn-sm">
+                        Validar
+                    </a>
+                </div>
+            </li>
+
             {% empty %}
                 <li class="list-group-item">No tienes tareas pendientes de validar.</li>
             {% endfor %}

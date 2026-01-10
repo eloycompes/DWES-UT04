@@ -8,17 +8,32 @@
 <body class="p-4">
 
 <div class="container">
-    <h1 class="mb-4">Tareas pendientes de validación</h1>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="m-0">Tareas a validar</h1>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger">Cambiar de usuario</a>
+    </div>
 
     <ul class="list-group">
         {% for tarea in tareas %}
-            <li class="list-group-item">
-                <a href="{% url 'detalle_tarea' tarea.id %}">{{ tarea.titulo }}</a>
+            <li class="list-group-item d-flex align-items-center">
+                {{ tarea.titulo }}
+
+                <div class="ms-auto d-flex gap-2">
+                    <a href="{% url 'detalle_tarea' tarea.id %}" class="btn btn-warning btn-sm">
+                        Revisar
+                    </a>
+
+                    <a href="{% url 'validar_tarea' tarea.id %}" class="btn btn-success btn-sm">
+                        Validar
+                    </a>
+                </div>
             </li>
         {% empty %}
             <li class="list-group-item">No tienes tareas pendientes de validar.</li>
         {% endfor %}
     </ul>
+
 </div>
 
 </body>
