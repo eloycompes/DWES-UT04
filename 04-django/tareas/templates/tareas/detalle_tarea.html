@@ -25,35 +25,21 @@
             {% endfor %}
         </ul>
 
-    <p><strong>Estado:</strong></p>
+        <p><strong>Estado:</strong></p>
 
-    <!-- Estado completada -->
-    {% if tarea.completada_por_alumno %}
-        <span class="badge bg-success rounded-pill px-3 py-2 me-2 mb-2 d-inline-block text-center"
-            style="width:150px;">
-            Completada
-        </span>
-    {% else %}
-        <span class="badge bg-danger rounded-pill px-3 py-2 me-2 mb-2 d-inline-block text-center"
-            style="width:150px;">
-            No completada
-        </span>
-    {% endif %}
-
-    <!-- Estado validación (solo si aplica) -->
-    {% if tarea.requiere_validacion_profesor %}
-        {% if tarea.validada_por_profesor %}
-            <span class="badge bg-success rounded-pill px-3 py-2 mb-2 d-inline-block text-center"
-                style="width:150px;">
-                Validada
-            </span>
+        {% if tarea.requiere_validacion_profesor %}
+            {% if tarea.validada_por_profesor %}
+                <span class="badge bg-success">Validada</span>
+            {% else %}
+                <span class="badge bg-danger">No validada</span>
+            {% endif %}
         {% else %}
-            <span class="badge bg-danger rounded-pill px-3 py-2 mb-2 d-inline-block text-center"
-                style="width:150px;">
-                No validada
-            </span>
+            {% if tarea.completada_por_alumno %}
+                <span class="badge bg-success">Validada</span>
+            {% else %}
+                <span class="badge bg-danger">No validada</span>
+            {% endif %}
         {% endif %}
-    {% endif %}
 
     </div>
 
