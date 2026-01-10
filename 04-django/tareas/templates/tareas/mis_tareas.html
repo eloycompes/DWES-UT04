@@ -14,56 +14,31 @@
         <a href="{% url 'logout' %}" class="btn btn-outline-danger">Cambiar de usuario</a>
     </div>
 
-    {% if not es_profesor %}
-        <a href="{% url 'crear_tarea_individual' %}" class="btn btn-primary mb-3">Crear tarea individual</a>
-        <a href="{% url 'crear_tarea_grupal' %}" class="btn btn-success mb-3">Crear tarea grupal</a>
+    <!-- SOLO ALUMNOS -->
+    <a href="{% url 'crear_tarea_individual' %}" class="btn btn-primary mb-3">Crear tarea individual</a>
+    <a href="{% url 'crear_tarea_grupal' %}" class="btn btn-success mb-3">Crear tarea grupal</a>
 
-        <h3>Tareas creadas por mí</h3>
-        <ul class="list-group mb-4">
-            {% for tarea in tareas_creadas %}
-                <li class="list-group-item">
-                    <a href="{% url 'detalle_tarea' tarea.id %}">{{ tarea.titulo }}</a>
-                </li>
-            {% empty %}
-                <li class="list-group-item">No has creado ninguna tarea.</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Tareas donde colaboro</h3>
-        <ul class="list-group mb-4">
-            {% for tarea in tareas_colabora %}
-                <li class="list-group-item">
-                    <a href="{% url 'detalle_tarea' tarea.id %}">{{ tarea.titulo }}</a>
-                </li>
-            {% empty %}
-                <li class="list-group-item">No colaboras en ninguna tarea.</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
-    {% if es_profesor %}
-        <h3 class="mt-4">Tareas a validar</h3>
-        <ul class="list-group mb-4">
-            {% for tarea in tareas_a_validar %}
-            <li class="list-group-item d-flex align-items-center">
-                {{ tarea.titulo }}
-
-                <div class="ms-auto d-flex gap-2">
-                    <a href="{% url 'detalle_tarea' tarea.id %}" class="btn btn-warning btn-sm">
-                        Revisar
-                    </a>
-
-                    <a href="{% url 'validar_tarea' tarea.id %}" class="btn btn-success btn-sm">
-                        Validar
-                    </a>
-                </div>
+    <h3>Tareas creadas por mí</h3>
+    <ul class="list-group mb-4">
+        {% for tarea in tareas_creadas %}
+            <li class="list-group-item">
+                <a href="{% url 'detalle_tarea' tarea.id %}">{{ tarea.titulo }}</a>
             </li>
+        {% empty %}
+            <li class="list-group-item">No has creado ninguna tarea.</li>
+        {% endfor %}
+    </ul>
 
-            {% empty %}
-                <li class="list-group-item">No tienes tareas pendientes de validar.</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <h3>Tareas donde colaboro</h3>
+    <ul class="list-group mb-4">
+        {% for tarea in tareas_colabora %}
+            <li class="list-group-item">
+                <a href="{% url 'detalle_tarea' tarea.id %}">{{ tarea.titulo }}</a>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No colaboras en ninguna tarea.</li>
+        {% endfor %}
+    </ul>
 
 </div>
 
