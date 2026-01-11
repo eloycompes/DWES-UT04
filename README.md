@@ -81,7 +81,7 @@ erDiagram
         uuid creador FK
         uuid profesor_validador FK
     }
-
+```
 > **Nota:** Aunque el diagrama muestra que cualquier usuario podría crear o validar tareas, la lógica de negocio implementada en Django restringe estas acciones según el rol.
 
 ---
